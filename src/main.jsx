@@ -5,6 +5,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router'
 import Register from './Routes/Authentication/Resgister'
 import AuthProvider from './Context/AuthProvider'
 import Layout from './Routes/Layout'
+import RoamAround from './Routes/RoamAround'
+import CreateGroup from './Routes/CreateGroup'
 
 const router = createBrowserRouter([
     {
@@ -14,7 +16,11 @@ const router = createBrowserRouter([
             {index: true, element: <h1>hello world</h1>}, 
             {
                 path: "all-groups", 
-                element: <h1>all groups</h1>
+                element: <RoamAround></RoamAround>
+            }, 
+            {
+                path: "crete-group", 
+                element: <CreateGroup />
             }
         ]
     },

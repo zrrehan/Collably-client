@@ -6,6 +6,10 @@ a.active>button {
   color:white
 }
 
+button {
+  cursor: pointer;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {

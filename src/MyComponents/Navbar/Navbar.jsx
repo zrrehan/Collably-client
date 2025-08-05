@@ -21,7 +21,7 @@ function Navbar() {
     console.log(user)
 
     return(
-        <div className="flex items-center justify-between px-7">
+        <div className="flex items-center justify-between px-7 mt-2">
             <Logo></Logo>
 
             <Navmenu></Navmenu>

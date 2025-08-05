@@ -11,7 +11,7 @@ import {
 import { Link, NavLink } from "react-router";
 import { Button } from "@/components/ui/button"
 import { FaHome, FaUsers } from "react-icons/fa";
-import { RiStickyNoteAddLine } from "react-icons/ri";
+
 
 
 function Navmenu() {
