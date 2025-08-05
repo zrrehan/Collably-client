@@ -9,6 +9,7 @@ import RoamAround from './Routes/RoamAround'
 import CreateGroup from './Routes/CreateGroup'
 import Group from './Routes/Group'
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query'
+import MyGroups from './Routes/MyGroups'
 
 const queryClient = new QueryClient()
 
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
             {
                 path: "groups/:id", 
                 element: <Group></Group>
+            }, 
+            {
+                path: "my-groups",
+                element: <MyGroups></MyGroups>
             }
         ]
     },

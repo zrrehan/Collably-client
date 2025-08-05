@@ -5,7 +5,7 @@ function Layout() {
     return(
         <div>
             <Navbar></Navbar>
-            <div>
+            <div className="mx-auto max-w-[1100px] w-[90%]">
                 <Outlet></Outlet>
             </div>
             <h1>footer</h1>

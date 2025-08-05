@@ -5,7 +5,7 @@ function GroupInfo({data}) {
     const {category, creator, description, groupCoverPhoto, name, visibility} = data
     return(
         <div className="space-y-6">
-            <div className="mx-auto max-w-[1100px] w-[90%]">
+            <div className="">
                 <img className="h-[450px] w-full object-cover rounded-4xl" src={groupCoverPhoto} alt="" />
             </div>
             <div className="mx-auto max-w-[1100px] w-[90%] space-y-3">

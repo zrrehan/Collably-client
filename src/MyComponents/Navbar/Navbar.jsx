@@ -12,7 +12,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import Navmenu from "./Navmenu";
-
+import { Link } from "react-router";
 
 
 
@@ -37,6 +37,7 @@ function Navbar() {
                     <DropdownMenuLabel>My Account</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem>Profile</DropdownMenuItem>
+                    <Link to ="/my-groups"><DropdownMenuItem>My Groups</DropdownMenuItem></Link>
                     <DropdownMenuItem>Logout</DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
