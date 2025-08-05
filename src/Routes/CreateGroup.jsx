@@ -27,10 +27,12 @@ function CreateGroup() {
     async function formSubmit(event) {
         event.preventDefault();
         // console.log(event.target.value.name)
-        const [name, category, picture, visibility, description] = [
+        let [name, category, picture, visibility, description] = [
             event.target.name.value, event.target.category.value, event.target.picture.files, event.target.visibility.value, event.target.description.value
         ]
-
+        if(category === "Others") {
+            category = event.target.newCategory.value
+        }
         const img = picture[0];
         console.log(img);
         const formData = new FormData();
@@ -38,6 +40,8 @@ function CreateGroup() {
         const imgbbUrl = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_upload_key}`;
         const res = await axios.post(imgbbUrl, formData)
         const imageUrl = res.data.data.display_url;
+        
+        
         const data = {
             name, category, visibility, description, groupCoverPhoto: imageUrl, creator: user.email
         }
@@ -87,7 +91,7 @@ function CreateGroup() {
                     {
                         category === "Others" && <div className="grid w-full max-w-sm items-center mt-5">
                             <Label>Write you Group Category</Label>
-                            <Input type="text" id="email" className="mt-4 " placeholder="eg. Education" />
+                            <Input type="text" id="email" className="mt-4 " placeholder="eg. Education" name= "newCategory"/>
 
                         </div>
                     }
