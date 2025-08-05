@@ -15,17 +15,49 @@ import team from "../lotties/team.json"
 import { Button } from "@/components/ui/button"
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { Textarea } from "@/components/ui/textarea"
-
+import axios from 'axios';
+import { useContext } from "react";
+import { AuthContext } from "../Context/AuthContext";
+import { useNavigate } from "react-router";
 
 function CreateGroup() {
-    function formSubmit(event) {
+    const {user} = useContext(AuthContext)
+    const navigate = useNavigate();
+
+    async function formSubmit(event) {
         event.preventDefault();
-        
+        // console.log(event.target.value.name)
+        const [name, category, picture, visibility, description] = [
+            event.target.name.value, event.target.category.value, event.target.picture.files, event.target.visibility.value, event.target.description.value
+        ]
+
+        const img = picture[0];
+        console.log(img);
+        const formData = new FormData();
+        formData.append("image", img)
+        const imgbbUrl = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_upload_key}`;
+        const res = await axios.post(imgbbUrl, formData)
+        const imageUrl = res.data.data.display_url;
+        const data = {
+            name, category, visibility, description, groupCoverPhoto: imageUrl, creator: user.email
+        }
+        console.log(data);
+        axios.post("http://localhost:3000/create-group", data, {
+            headers: {
+                authorization: `Bearer ${user.accessToken}`
+            }, 
+            params: {
+                email: user.email
+            }
+        })
+            .then((response) => {
+                navigate(`/groups/${response.data.insertedId}`);
+            })
     }
 
     const [category, setCategory] = useState("Gaming");
     return(
-        <form onSubmit={formSubmit} className="border-2 rounded-3xl mt-15 p-20 px-35 max-w-[1100px] mx-auto flex justify-between items-center">
+        <form onSubmit={formSubmit} className="border-2 rounded-3xl mt-15 p-20 px-35 max-w-[1100px] mx-auto flex flex-col-reverse gap-5 lg:flex-row justify-between items-center">
             <div className="flex flex-col gap-7">
                 <div>
                     <h1 className="text-4xl font-semibold">Create New Group</h1>
@@ -33,12 +65,12 @@ function CreateGroup() {
                 </div>
                 <div className="grid w-full max-w-sm items-center gap-3">
                     <Label>Group Name</Label>
-                    <Input type="text" id="email" placeholder="Select A Group Name" />
+                    <Input type="text" placeholder="Select A Group Name" name = "name"/>
                 </div>
 
                 <div>
                     <Label className="mb-2">Category</Label>
-                    <Select defaultValue="Gaming" onValueChange={(value) => setCategory(value)}>
+                    <Select defaultValue="Gaming" onValueChange={(value) => setCategory(value)} name = "category">
                         <SelectTrigger className="w-full">
                             <SelectValue placeholder="Select a category" />
                         </SelectTrigger>
@@ -64,12 +96,12 @@ function CreateGroup() {
 
                 <div className="grid w-full max-w-sm items-center gap-3">
                     <Label htmlFor="picture">Group Picture</Label>
-                    <Input id="picture" type="file" />
+                    <Input id="picture" type="file" name = "picture"/>
                 </div>
 
                 <div>
                     <Label className="mb-2">Visibility</Label>
-                    <Select defaultValue="public" >
+                    <Select defaultValue="public" name = "visibility">
                         <SelectTrigger className="w-full">
                             <SelectValue placeholder="Select a category" />
                         </SelectTrigger>
@@ -85,7 +117,7 @@ function CreateGroup() {
 
                 <div className="grid w-full gap-3">
                     <Label htmlFor="message">Description</Label>
-                    <textarea placeholder="Type group description here." id="message" className= "h-[100px] p-2 border border-[#e5e5e5] rounded-xl resize-y"></textarea>
+                    <textarea placeholder="Type group description here." name = "description" id="message" className= "h-[100px] p-2 border border-[#e5e5e5] rounded-xl resize-y"></textarea>
                 </div>
 
                 <div className="flex flex-wrap items-center gap-2 md:flex-row">

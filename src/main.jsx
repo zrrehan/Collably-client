@@ -7,6 +7,7 @@ import AuthProvider from './Context/AuthProvider'
 import Layout from './Routes/Layout'
 import RoamAround from './Routes/RoamAround'
 import CreateGroup from './Routes/CreateGroup'
+import Group from './Routes/Group'
 
 const router = createBrowserRouter([
     {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
             {
                 path: "crete-group", 
                 element: <CreateGroup />
+            }, 
+            {
+                path: "groups/:id", 
+                element: <Group></Group>
             }
         ]
     },
