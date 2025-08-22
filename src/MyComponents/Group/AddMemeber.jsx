@@ -19,10 +19,11 @@ import Swal from "sweetalert2"
 export default function AddMember({id}) {
     const {user} = useContext(AuthContext);
     const [email, setEmail] = useState("");
+    const [adding, setAdding] = useState(false);
+
     function handleSubmit(event) {
         event.preventDefault();
-        
-
+        setAdding(true);
         axios.post(`http://localhost:3000/add-member`,null , {
             headers: {
                 authorization: `Bearer ${user.accessToken}`
@@ -49,7 +50,7 @@ export default function AddMember({id}) {
                     icon: res.data.icon,
                     title: res.data.message
                 });
-
+                setAdding(false);
                 setEmail("")
             });
     }
@@ -83,7 +84,11 @@ export default function AddMember({id}) {
                         <DialogClose asChild>
                             <Button variant="outline">Cancel</Button>
                         </DialogClose>
-                        <Button type="submit" onClick = {handleSubmit}>Add member</Button>
+                        <Button type="submit" disabled ={adding} onClick = {handleSubmit} className = "w-[200px]">
+                            {
+                                adding ? <>Adding...</> : <>Add member</>
+                            }
+                        </Button>
                     </DialogFooter>
                 </DialogContent>
             </form>
