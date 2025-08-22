@@ -20,9 +20,8 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 
-export default function ShowMember({id}) {
+export default function ShowMember({ id, setUserData, userData }) {
     const {user} = useContext(AuthContext);
-    const [userData, setUserData] = useState([]);
     let { data, isPending, isError, error } = useQuery({
         queryKey: ["todos"],
         queryFn: async () => {
@@ -51,34 +50,48 @@ export default function ShowMember({id}) {
     
 
     function deleteUser(email, id) {
-        axios.delete("http://localhost:3000/delete-user-from-group", {
-            headers: {
-                authorization: `Bearer ${user.accessToken}`
-            },
-            params: {
-                email: user.email,
-                id: id,
-                deletedUser: email
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axios.delete("http://localhost:3000/delete-user-from-group", {
+                    headers: {
+                        authorization: `Bearer ${user.accessToken}`
+                    },
+                    params: {
+                        email: user.email,
+                        id: id,
+                        deletedUser: email
+                    }
+                }).then(() => {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: "top-end",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.onmouseenter = Swal.stopTimer;
+                            toast.onmouseleave = Swal.resumeTimer;
+                        }
+                    });
+                    Toast.fire({
+                        icon: "success",
+                        title: "This member is deleted from the group."
+                    });
+                    const filteredUser = userData.filter((singleData) => singleData.email !== email);
+                    setUserData(filteredUser);
+                })
             }
-        }).then(() => {
-            const Toast = Swal.mixin({
-                toast: true,
-                position: "top-end",
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.onmouseenter = Swal.stopTimer;
-                    toast.onmouseleave = Swal.resumeTimer;
-                }
-            });
-            Toast.fire({
-                icon: "success",
-                title: "This member is deleted from the group."
-            });
-            const filteredUser = userData.filter((singleData) => singleData.email !== email);
-            setUserData(filteredUser);
-        })
+        });
+
+        
     }
 
     return (

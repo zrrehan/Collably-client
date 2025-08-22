@@ -3,9 +3,11 @@ import { MdOutlineVisibility } from "react-icons/md";
 import GroupSettings from "./GroupSettings";
 import GroupData from "./GroupData";
 import ShowMember from "./ShowMember";
+import { useState } from "react";
 
 function GroupInfo({data}) {
     const {category, creator, description, groupCoverPhoto, name, visibility, _id} = data
+    const [userData, setUserData] = useState([]);
     return(
         <div className="space-y-7">
             <div className="space-y-6">
@@ -19,11 +21,11 @@ function GroupInfo({data}) {
                         <div className="flex gap-10">
                             <p className="flex items-center gap-2 text-xl"><MdOutlineCategory />{category}</p>
                             <p className="flex items-center gap-2 text-xl"><MdOutlineVisibility />{visibility}</p>
-                            <GroupSettings id={_id}></GroupSettings>
+                            <GroupSettings userData={userData} setUserData={setUserData} id={_id}></GroupSettings>
                         </div>
 
                         <div>
-                            <ShowMember id={_id}/>
+                            <ShowMember userData={userData} setUserData={setUserData} id={_id}/>
                         </div>
                     </div>
                 </div>

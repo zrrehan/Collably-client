@@ -16,11 +16,11 @@ import { useContext, useState } from "react"
 import { AuthContext } from "../../Context/AuthContext"
 import Swal from "sweetalert2"
 
-export default function AddMember({id}) {
+export default function AddMember({ id, setUserData, userData }) {
     const {user} = useContext(AuthContext);
     const [email, setEmail] = useState("");
     const [adding, setAdding] = useState(false);
-
+    console.log(userData)
     function handleSubmit(event) {
         event.preventDefault();
         setAdding(true);
@@ -51,6 +51,16 @@ export default function AddMember({id}) {
                     title: res.data.message
                 });
                 setAdding(false);
+                if(res.data.icon === "success") {
+                    setUserData([...userData, {
+                        admin: "false",
+                        creator: "false",
+                        email: email,
+                        groupId: id,
+                        profilePicture: res.profilePicture,
+                        _id: email
+                    }])
+                }
                 setEmail("")
             });
     }

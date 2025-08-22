@@ -14,7 +14,7 @@ import axios from "axios"
 import Swal from "sweetalert2";
 import AddMember from "./AddMemeber";
 
-function GroupSettings({id}) {
+function GroupSettings({ id, setUserData, userData }) {
     const {user} = useContext(AuthContext);
     function deleteGroup() {
         Swal.fire({
@@ -52,7 +52,7 @@ function GroupSettings({id}) {
             <DropdownMenuContent>
                 <DropdownMenuLabel>Group Settings</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <AddMember id = {id}></AddMember>
+                <AddMember id={id} userData={userData} setUserData={setUserData}></AddMember>
                 <DropdownMenuItem onClick={deleteGroup} className="bg-red-200 text-red-800 hover:!bg-red-200 hover:!text-red-800"><MdDelete style = {{color:"red"}}/>Delete Group</DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
