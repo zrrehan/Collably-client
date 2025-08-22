@@ -12,6 +12,7 @@ import { AuthContext } from "../../Context/AuthContext";
 import { useContext } from "react";
 import axios from "axios"
 import Swal from "sweetalert2";
+import AddMember from "./AddMemeber";
 
 function GroupSettings({id}) {
     const {user} = useContext(AuthContext);
@@ -51,7 +52,7 @@ function GroupSettings({id}) {
             <DropdownMenuContent>
                 <DropdownMenuLabel>Group Settings</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Settings</DropdownMenuItem>
+                <AddMember id = {id}></AddMember>
                 <DropdownMenuItem onClick={deleteGroup} className="bg-red-200 text-red-800 hover:!bg-red-200 hover:!text-red-800"><MdDelete style = {{color:"red"}}/>Delete Group</DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
