@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import Navmenu from "./Navmenu";
 import { Link } from "react-router";
+import { ModeToggle } from "./ModeToggle";
 
 
 
@@ -26,21 +27,24 @@ function Navbar() {
 
             <Navmenu></Navmenu>
 
-            <DropdownMenu>
-                <DropdownMenuTrigger>
-                    <Avatar>
-                        <AvatarImage src={user?.photoURL} />
-                        <AvatarFallback>{user?.displayName[0]}</AvatarFallback>
-                    </Avatar>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className = "mr-7">
-                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem>Profile</DropdownMenuItem>
-                    <Link to ="/my-groups"><DropdownMenuItem>My Groups</DropdownMenuItem></Link>
-                    <DropdownMenuItem>Logout</DropdownMenuItem>
-                </DropdownMenuContent>
-            </DropdownMenu>
+            <div className="flex items-center justify-center gap-2">
+                <ModeToggle></ModeToggle>
+                <DropdownMenu>
+                    <DropdownMenuTrigger>
+                        <Avatar>
+                            <AvatarImage src={user?.photoURL} />
+                            <AvatarFallback>{user?.displayName[0]}</AvatarFallback>
+                        </Avatar>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="mr-7">
+                        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem>Profile</DropdownMenuItem>
+                        <Link to="/my-groups"><DropdownMenuItem>My Groups</DropdownMenuItem></Link>
+                        <DropdownMenuItem>Logout</DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
+            </div>
         </div>
     )
 }

@@ -10,6 +10,7 @@ import CreateGroup from './Routes/CreateGroup'
 import Group from './Routes/Group'
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query'
 import MyGroups from './Routes/MyGroups'
+import { ThemeProvider } from './ThemeProvider'
 
 const queryClient = new QueryClient()
 
@@ -45,10 +46,12 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
     <StrictMode>
-        <AuthProvider>
-            <QueryClientProvider client = {queryClient}>
-                <RouterProvider router={router}></RouterProvider>
-            </QueryClientProvider>
-        </AuthProvider>
+        <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
+            <AuthProvider>
+                <QueryClientProvider client={queryClient}>
+                    <RouterProvider router={router}></RouterProvider>
+                </QueryClientProvider>
+            </AuthProvider>
+        </ThemeProvider>
     </StrictMode>,
 )
