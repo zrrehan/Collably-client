@@ -1,8 +1,9 @@
 import { MdOutlineCategory } from "react-icons/md";
 import { MdOutlineVisibility } from "react-icons/md";
+import GroupSettings from "./GroupSettings";
 
 function GroupInfo({data}) {
-    const {category, creator, description, groupCoverPhoto, name, visibility} = data
+    const {category, creator, description, groupCoverPhoto, name, visibility, _id} = data
     return(
         <div className="space-y-6">
             <div className="">
@@ -14,6 +15,7 @@ function GroupInfo({data}) {
                 <div className="flex gap-10">
                     <p className="flex items-center gap-2 text-xl"><MdOutlineCategory />{category}</p>
                     <p className="flex items-center gap-2 text-xl"><MdOutlineVisibility />{visibility}</p>
+                    <GroupSettings id = {_id}></GroupSettings>
                 </div>
             </div>
         </div>

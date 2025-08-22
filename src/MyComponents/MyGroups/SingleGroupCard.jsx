@@ -1,7 +1,7 @@
 import { MdOutlineCategory } from "react-icons/md";
 import { MdOutlineVisibility } from "react-icons/md";
-import { Button } from "@/components/ui/button"
-import {Link} from "react-router"
+import { Button } from "@/components/ui/button";
+import {Link} from "react-router";
 
 function SingleGroupCard({info}) {
     const {_id, name, category, visibility, description, groupCoverPhoto, creator} = info
